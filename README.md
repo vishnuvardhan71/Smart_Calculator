@@ -2,7 +2,7 @@
 
 A free, single-page web app bundling seven everyday calculators into one fast, clean interface — no sign-up, no backend, no ads.
 
-**Live demo:** [add your Vercel URL here]
+**Live demo:** https://smartcalculator-amber.vercel.app/
 
 ---
 
@@ -50,7 +50,7 @@ smartcalculator/
 No installation or build step required.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/smartcalculator.git
+git clone https://github.com/vishnuvardhan71/Smart_Calculator.git
 cd smartcalculator
 open index.html      # or just double-click the file
 ```
@@ -71,8 +71,8 @@ This project is deployed for free on [Vercel](https://vercel.com):
 
 ## Author
 
-**[Your Full Name]**
-📧 [your.email@example.com]
+Narayana Vishnu Vardhan Gupta
+📧 narayanavishnuvardhangupta@gmail.com
 
 ## License
 
