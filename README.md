@@ -72,7 +72,8 @@ This project is deployed for free on [Vercel](https://vercel.com):
 ## Author
 
 Narayana Vishnu Vardhan Gupta
-📧 narayanavishnuvardhangupta@gmail.com
+
+📧narayanavishnuvardhangupta@gmail.com
 
 ## License
 
