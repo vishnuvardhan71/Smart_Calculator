@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCalculator — Every calculator you actually need, free</title>
+<meta name="description" content="Age, SGPA, CGPA, EMI, GST, Discount and Split Bill calculators in one fast, free tool.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">seven tools / zero signup / always free</div>
+  <h1>Seven calculators.<br>One page. <span class="accent">No nonsense.</span></h1>
+  <p class="sub">Age, SGPA, CGPA, EMI, GST, discount, and split-bill math — done instantly, in your browser, with no account and no ads.</p>
+  <div class="meta-strip">
+    <span><b>7</b> tools</span>
+    <span><b>0</b> signups</span>
+    <span><b>₹0</b> cost</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="grid" id="toolGrid">
+    <div class="card" data-target="age">
+      <span class="num">01</span>
+      <h3>Age Calculator</h3>
+      <p>Exact years, months and days between two dates.</p>
+    </div>
+    <div class="card" data-target="sgpa">
+      <span class="num">02</span>
+      <h3>SGPA Calculator</h3>
+      <p>SGPA = Σ(Credit × Grade Point) / Σ(Credits)</p>
+    </div>
+    <div class="card" data-target="cgpa">
+      <span class="num">03</span>
+      <h3>CGPA Calculator</h3>
+      <p>Average CGPA from all your semester SGPAs.</p>
+    </div>
+    <div class="card" data-target="emi">
+      <span class="num">04</span>
+      <h3>EMI Calculator</h3>
+      <p>Monthly installment, total interest, total payable.</p>
+    </div>
+    <div class="card" data-target="gst">
+      <span class="num">05</span>
+      <h3>GST Calculator</h3>
+      <p>Add or remove GST from any amount, any slab.</p>
+    </div>
+    <div class="card" data-target="discount">
+      <span class="num">06</span>
+      <h3>Percentage / Discount Calculator</h3>
+      <p>Final price, amount saved, or percentage change.</p>
+    </div>
+    <div class="card" data-target="split">
+      <span class="num">07</span>
+      <h3>Split Bill Calculator</h3>
+      <p>Divide a bill evenly or by exact custom shares.</p>
+    </div>
+  </div>
+
+  <!-- ===================== AGE ===================== -->
+  <div class="panel" id="panel-age">
+    <div class="panel-head">
+      <div>
+        <h2>Age Calculator</h2>
+        <p>Enter a birth date (and optionally a "calculate as of" date) to get an exact age.</p>
+      </div>
+      <button class="close-btn" data-close>✕</button>
+    </div>
+    <div class="field-row">
+      <div>
+        <label for="age-dob">Date of birth</label>
+        <input type="date" id="age-dob">
+      </div>
+      <div>
+        <label for="age-asof">Calculate as of</label>
+        <input type="date" id="age-asof">
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcAge()">Calculate age</button>
+    <div class="readout" id="age-readout">
+      <div class="readout-label">Your exact age</div>
+      <div class="readout-value" id="age-value">—</div>
+      <div class="readout-sub" id="age-sub"></div>
+    </div>
+  </div>
+
+  <!-- ===================== SGPA ===================== -->
+  <div class="panel" id="panel-sgpa">
+    <div class="panel-head">
+      <div>
+        <h2>SGPA Calculator</h2>
+        <p>Add each subject's credit and grade point for one semester.<br><code>SGPA = Σ(Credit × Grade Point) / Σ(Credits)</code></p>
+      </div>
+      <button class="close-btn" data-close>✕</button>
+    </div>
+    <div id="sgpa-rows"></div>
+    <button class="add-row-btn" onclick="addSgpaRow()">+ add subject</button>
+    <br>
+    <button class="calc-btn" onclick="calcSgpa()">Calculate SGPA</button>
+    <div class="readout" id="sgpa-readout">
+      <div class="readout-label">SGPA</div>
+      <div class="readout-value" id="sgpa-value">—</div>
+      <div class="readout-sub" id="sgpa-sub"></div>
+    </div>
+  </div>
+
+  <!-- ===================== CGPA ===================== -->
+  <div class="panel" id="panel-cgpa">
+    <div class="panel-head">
+      <div>
+        <h2>CGPA Calculator</h2>
+        <p>Enter the SGPA of each semester to get your overall CGPA.<br><code>CGPA = Σ(SGPA) / Number of semesters</code></p>
+      </div>
+      <button class="close-btn" data-close>✕</button>
+    </div>
+    <div id="cgpa-rows"></div>
+    <button class="add-row-btn" onclick="addCgpaRow()">+ add semester</button>
+    <br>
+    <button class="calc-btn" onclick="calcCgpa()">Calculate CGPA</button>
+    <div class="readout" id="cgpa-readout">
+      <div class="readout-label">CGPA</div>
+      <div class="readout-value" id="cgpa-value">—</div>
+      <div class="readout-sub" id="cgpa-sub"></div>
+    </div>
+  </div>
+
+  <!-- ===================== EMI ===================== -->
+  <div class="panel" id="panel-emi">
+    <div class="panel-head">
+      <div>
+        <h2>EMI Calculator</h2>
+        <p>Standard reducing-balance EMI for loans, home loans, or any installment plan.</p>
+      </div>
+      <button class="close-btn" data-close>✕</button>
+    </div>
+    <div class="field-row">
+      <div>
+        <label for="emi-principal">Loan amount (₹)</label>
+        <input type="number" id="emi-principal" placeholder="e.g. 500000">
+      </div>
+      <div>
+        <label for="emi-rate">Annual interest rate (%)</label>
+        <input type="number" id="emi-rate" placeholder="e.g. 9.5" step="0.01">
+      </div>
+      <div>
+        <label for="emi-tenure">Tenure (months)</label>
+        <input type="number" id="emi-tenure" placeholder="e.g. 36">
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcEmi()">Calculate EMI</button>
+    <div class="readout" id="emi-readout">
+      <div class="readout-label">Monthly EMI</div>
+      <div class="readout-value" id="emi-value">—</div>
+      <div class="readout-sub" id="emi-sub"></div>
+    </div>
+  </div>
+
+  <!-- ===================== GST ===================== -->
+  <div class="panel" id="panel-gst">
+    <div class="panel-head">
+      <div>
+        <h2>GST Calculator</h2>
+        <p>Add GST to a base amount, or pull GST out of a GST-inclusive amount.</p>
+      </div>
+      <button class="close-btn" data-close>✕</button>
+    </div>
+    <div class="field-row">
+      <div>
+        <label for="gst-amount">Amount (₹)</label>
+        <input type="number" id="gst-amount" placeholder="e.g. 1000">
+      </div>
+      <div>
+        <label for="gst-rate">GST rate (%)</label>
+        <select id="gst-rate">
+          <option value="5">5%</option>
+          <option value="12">12%</option>
+          <option value="18" selected>18%</option>
+          <option value="28">28%</option>
+        </select>
+      </div>
+      <div>
+        <label for="gst-type">Amount type</label>
+        <select id="gst-type">
+          <option value="exclusive">Excludes GST (add GST)</option>
+          <option value="inclusive">Includes GST (remove GST)</option>
+        </select>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcGst()">Calculate GST</button>
+    <div class="readout" id="gst-readout">
+      <div class="readout-label">Total amount</div>
+      <div class="readout-value" id="gst-value">—</div>
+      <div class="readout-sub" id="gst-sub"></div>
+    </div>
+  </div>
+
+  <!-- ===================== DISCOUNT ===================== -->
+  <div class="panel" id="panel-discount">
+    <div class="panel-head">
+      <div>
+        <h2>Percentage / Discount Calculator</h2>
+        <p>Find the final price after a discount, or work out what percentage one number is of another.</p>
+      </div>
+      <button class="close-btn" data-close>✕</button>
+    </div>
+    <div class="field-row">
+      <div>
+        <label for="disc-price">Original price (₹)</label>
+        <input type="number" id="disc-price" placeholder="e.g. 2000">
+      </div>
+      <div>
+        <label for="disc-percent">Discount (%)</label>
+        <input type="number" id="disc-percent" placeholder="e.g. 25">
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcDiscount()">Calculate</button>
+    <div class="readout" id="disc-readout">
+      <div class="readout-label">Final price</div>
+      <div class="readout-value" id="disc-value">—</div>
+      <div class="readout-sub" id="disc-sub"></div>
+    </div>
+  </div>
+
+  <!-- ===================== SPLIT BILL ===================== -->
+  <div class="panel" id="panel-split">
+    <div class="panel-head">
+      <div>
+        <h2>Split Bill Calculator</h2>
+        <p>Split a total evenly across people, or set custom shares for each person.</p>
+      </div>
+      <button class="close-btn" data-close>✕</button>
+    </div>
+    <div class="field-row">
+      <div>
+        <label for="split-total">Total bill (₹)</label>
+        <input type="number" id="split-total" placeholder="e.g. 1800">
+      </div>
+      <div>
+        <label for="split-tip">Tip / service charge (%) — optional</label>
+        <input type="number" id="split-tip" placeholder="e.g. 10">
+      </div>
+    </div>
+    <label>Split mode</label>
+    <div class="field-row" style="margin-bottom:6px;">
+      <select id="split-mode" onchange="toggleSplitMode()">
+        <option value="even">Split evenly</option>
+        <option value="custom">Custom shares</option>
+      </select>
+    </div>
+
+    <div id="split-even-block">
+      <div class="field-row">
+        <div>
+          <label for="split-people">Number of people</label>
+          <input type="number" id="split-people" placeholder="e.g. 4" min="1">
+        </div>
+      </div>
+    </div>
+
+    <div id="split-custom-block" style="display:none;">
+      <div id="split-custom-rows"></div>
+      <button class="add-row-btn" onclick="addSplitRow()">+ add person</button>
+    </div>
+
+    <br>
+    <button class="calc-btn" onclick="calcSplit()">Calculate split</button>
+    <div class="readout" id="split-readout">
+      <div class="readout-label">Each person pays</div>
+      <div class="readout-value" id="split-value">—</div>
+      <div class="readout-sub" id="split-sub"></div>
+      <div class="split-list" id="split-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-contact">
+    <b>Your Full Name</b>
+    your.email@example.com
+  </div>
+  <a class="built-for-btn" href="https://digitalheroesco.com" target="_blank" rel="noopener">Built for Digital Heroes →</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
